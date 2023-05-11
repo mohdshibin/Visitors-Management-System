@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('title', 'Login')
+@section('title', 'Regitser')
 
 @section('content')
 

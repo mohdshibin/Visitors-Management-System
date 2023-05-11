@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,10 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', function () {
-    return view('login');
-});
+Route::get('/login', [AuthController::class, 'login'])->name('login');
 
-Route::get('/Register', function () {
-    return view('Register');
-});
+Route::get('admin/register', [AuthController::class, 'register'])->name('register');
