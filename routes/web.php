@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AccessFormController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,3 +26,4 @@ Route::post('/admin/register', [AuthController::class, 'registerPost'])->name('r
 Route::get('/admin/dashboard', [AuthController::class, 'getAdminDashboard'])->name('getAdminDashboard');
 
 Route::get('/visitor/acessform', [AuthController::class, 'getAccessForm'])->name('getAccessForm');
+Route::post('/visitor/acessform', [AccessFormController::class, 'requestAccess'])->name('postAccessForm');

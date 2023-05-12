@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Visitors extends Model
+class Visitor extends Model
 {
     use HasFactory;
 
+    protected $table = 'visitors';
     protected $fillable = [
         'fname',
         'contactNo',
@@ -16,7 +17,7 @@ class Visitors extends Model
         'address',
         'purpose',
         'noOfPeople',
-        'parkingSlot'
+        'parkingSlot',
     ];
 
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\AdminCredential;
 
 class AuthController extends Controller
 {
@@ -57,9 +57,9 @@ class AuthController extends Controller
         $data['email'] = $request->email;
         $data['password'] = Hash::make($request->password);
 
-        $user = User::create($data);
+        $admin = AdminCredential::create($data);
 
-        if(!$user){
+        if(!$admin){
             return redirect()->route('register')->with('error','Some Problem');
         }
 
