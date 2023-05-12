@@ -1,66 +1,40 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Create Visitors Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Create a system for scheduling and monitoring visitor activities at a workplace. There will be two types of users: administrators, who can approve or reject requests for visitors and view the visitors' activities, such as how many hours they spend in the office. The second user is a visitor to the workplace.
 
-## About Laravel
+Laravel & PHP coding standards Doc : [![](https://developers.google.com/drive/images/drive_icon.png)https://docs.google.com/document/d/1Xs0WSPXn8uiQGKH6GlxXkLP-d04fiGkylVaI240a_PU/edit#heading=h.2fsys04n586i](https://docs.google.com/document/d/1Xs0WSPXn8uiQGKH6GlxXkLP-d04fiGkylVaI240a_PU/edit#heading=h.2fsys04n586i) - Connect your Google account
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+DataBase Standards : [![](https://developers.google.com/drive/images/drive_icon.png)https://docs.google.com/document/d/1YP8R9w6qL9vJRxNPR0r-sZl2rRdxvNdlY49h3gjkBi8/edit#heading=h.4jvyzvh1z4gt](https://docs.google.com/document/d/1YP8R9w6qL9vJRxNPR0r-sZl2rRdxvNdlY49h3gjkBi8/edit#heading=h.4jvyzvh1z4gt) - Connect your Google account
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Implement Registration and Login
+Implement Registration for Admin with a field user name, email and password (secure password).
+Implement Login for both Admin and Visitors with the field email and password.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Visitors Activity
 
-## Learning Laravel
+In the system, there will be an option to forward visitor requests to the office.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+In the request form include fields like Full name, contact number, email, address, purpose, no of people etc. There will be a request parking slot option.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+The visitor will get login credentials via email. After login, there will be an option for both check-in and check-out.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+NOTE : The parking slot will be free for 5hr after that per hour Rs.10 will charged
 
-## Laravel Sponsors
+## Admin Activities
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Administrators have access to all requests and can take the appropriate action (accept or deny, including parking slots as well).
 
-### Premium Partners
+Based on his action needs to send email communication to the visitors.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Send login passwords to the visitors via email communication.
 
-## Contributing
+Admin can view check-in and check-out time of visitors.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Create a cron for send payment link to visitor
 
-## Code of Conduct
+The parking slot will be free for 5hr after that per hour Rs.10 will be charged.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+When the visitor check-out from the office, we need to send a payment link to the user if he spends more than 5hr at the workplace.
 
-## Security Vulnerabilities
+Open PG documentation reference : [https://docs.bankopen.com/reference](https://docs.bankopen.com/reference "https://docs.bankopen.com/reference")
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
