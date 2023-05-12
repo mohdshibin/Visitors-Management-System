@@ -39,8 +39,8 @@ class AuthController extends Controller
             return redirect()->intended(route('getAdminDashboard'));
         }
         else {
-            //return back()->with('error','Some Problem ');
-            return redirect()->intended(route('getAccessForm'));
+            return back()->with('error','Invalid EmailId or Password');
+            //return redirect()->intended(route('getAccessForm'));
         }
         
         //return redirect(route(name : 'home'));
