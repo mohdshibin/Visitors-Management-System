@@ -16,10 +16,6 @@ class AuthController extends Controller
         return view(view: 'register');
     }
 
-    function getAdminDashboard(){
-        return view(view: 'admindashboard');
-    }
-
     function getAccessForm(){
         return view(view: 'accessform');
     }

@@ -10,15 +10,21 @@
         <li class="breadcrumb-item active">New Request</li>
     </ol>
     <div class="row">
-        <div class="col-sm-3">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Access Request</h5>
-                <p class="card-text">name and details</p>
-                <a href="#" class="btn btn-primary">Permit</a>
-                <a href="#" class="btn btn-primary">Deny</a>
+        <div style = "display:grid; grid-template-columns: 1fr 1fr 1fr; grid-gap:15px">
+
+            @foreach($visitors as $visitor)
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">{{$visitor['fname']}}</h5>
+                  <p class="card-text">Purpose : {{$visitor['purpose']}}</p>
+                  <p class="card-text">No of Peoples : {{$visitor['noOfPeople']}}</p>
+                  <p class="card-text"></p>
+                  <a href="#" class="btn btn-primary">Permit</a>
+                  <a href="#" class="btn btn-primary">Deny</a>
+                </div>
               </div>
-            </div>
+            @endforeach
+
           </div>
         </div>
     </div>
