@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admin_credentials', function (Blueprint $table) {
-            $table->id();
+        Schema::create('visitor_credentials', function (Blueprint $table) {
+            $table->foreignId('id')->constrained(
+                table: 'visitors', indexName: 'id'
+            );
+            // $table->unsignedBigInteger('id');
+            // $table->foreign('id')->references('id')->on('visitors');
             $table->string('email')->unique();
             $table->string('password');
-            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('admin_credentials');
+        Schema::dropIfExists('visitor_credentials');
     }
 };
