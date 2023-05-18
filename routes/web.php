@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AccessFormController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\VisitorDashboardController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,16 +17,23 @@ use App\Http\Controllers\AdminDashboardController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
 
-Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/login',[AuthController::class, 'loginPost'])->name('loginPost');
+Route::middleware('multiauth')->group(function () {
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/login',[AuthController::class, 'loginPost'])->name('loginPost');
 
-Route::get('/admin/register', [AuthController::class, 'register'])->name('register');
-Route::post('/admin/register', [AuthController::class, 'registerPost'])->name('registerPost');
-Route::get('/admin/dashboard', [AdminDashboardController::class, 'getAdminDashboard'])->name('getAdminDashboard');
+    Route::get('/admin/register', [AuthController::class, 'register'])->name('register');
+    Route::post('/admin/register', [AuthController::class, 'registerPost'])->name('registerPost');
 
-Route::get('/visitor/acessform', [AuthController::class, 'getAccessForm'])->name('getAccessForm');
-Route::post('/visitor/acessform', [AccessFormController::class, 'requestAccess'])->name('postAccessForm');
+});
+
+Route::middleware('redirectifnotauthenticated')->group(function () {
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'getAdminDashboard'])->name('getAdminDashboard');
+    Route::get('/visitor/dashboard', [VisitorDashboardController::class, 'getVisitorDashboard'])->name('getVisitorDashboard');
+});
+
+
+Route::get('acessform', [AuthController::class, 'getAccessForm'])->name('getAccessForm');
+Route::post('acessform', [AccessFormController::class, 'requestAccess'])->name('postAccessForm');
+
+Route::get('/logout',[AuthController::class, 'logout'])->name('logout');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Models\AdminCredential;
 
@@ -31,14 +32,17 @@ class AuthController extends Controller
 
         //return "<h1>sdsa</h1>".$credentials['password'];
         //todo - checking
-        if(Auth::attempt($credentials)){
+        if(Auth::guard('webvisitor')->attempt($credentials)){
+            return redirect()->intended(route('getVisitorDashboard'));
+        }
+        if(Auth::guard('webadmin')->attempt($credentials)){
             return redirect()->intended(route('getAdminDashboard'));
         }
         else {
             return back()->with('error','Invalid EmailId or Password');
             //return redirect()->intended(route('getAccessForm'));
         }
-        
+
         //return redirect(route(name : 'home'));
 
         //return redirect()->route('login')->with('error','Some Problem');
@@ -60,5 +64,11 @@ class AuthController extends Controller
         }
 
         return redirect()->route('login');
+    }
+
+    function logout(){
+        Session::flush();
+        Auth::logout();
+        return  redirect()->route('login');
     }
 }

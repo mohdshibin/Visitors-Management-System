@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'webadmin',
         'passwords' => 'admin_credentials',
     ],
 
@@ -36,10 +36,16 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'webadmin' => [
             'driver' => 'session',
             'provider' => 'admin_credentials',
         ],
+
+        'webvisitor' => [
+            'driver' => 'session',
+            'provider' => 'visitor_credentials',
+        ],
+
     ],
 
     /*
@@ -65,10 +71,10 @@ return [
             'model' => App\Models\AdminCredential::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'visitor_credentials' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\VisitorCredential::class,
+        ],
     ],
 
     /*
