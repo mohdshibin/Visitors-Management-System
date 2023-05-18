@@ -37,3 +37,7 @@ Route::get('acessform', [AuthController::class, 'getAccessForm'])->name('getAcce
 Route::post('acessform', [AccessFormController::class, 'requestAccess'])->name('postAccessForm');
 
 Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
+
+Route::get('/forbidden' ,function (){
+    return view('forbidden');
+})->name('forbidden');
