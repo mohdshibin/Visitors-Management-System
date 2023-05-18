@@ -54,6 +54,7 @@ class Kernel extends HttpKernel
      */
     protected $middlewareAliases = [
         'multiauth' =>  \App\Http\Middleware\MultiAuthenticate::class,
+        'access.validator' => \App\Http\Middleware\AccessValidator::class,
         'redirectifnotauthenticated' => \App\Http\Middleware\RedirectIfNotAuthenticated::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,

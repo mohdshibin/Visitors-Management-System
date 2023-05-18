@@ -27,7 +27,7 @@ Route::middleware('multiauth')->group(function () {
 
 });
 
-Route::middleware('redirectifnotauthenticated')->group(function () {
+Route::middleware(['redirectifnotauthenticated','access.validator'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'getAdminDashboard'])->name('getAdminDashboard');
     Route::get('/visitor/dashboard', [VisitorDashboardController::class, 'getVisitorDashboard'])->name('getVisitorDashboard');
 });

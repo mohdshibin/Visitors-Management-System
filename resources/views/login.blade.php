@@ -6,7 +6,7 @@
 
     <div class="container">
         <form action={{ route('loginPost') }} method="POST" class="mx-auto mt-2" style="width: 600px; height: 100%">
-            @csrf
+            @csrf <!-- {{ csrf_field() }} -->
             <div class="mb-3">
                 <label class="form-label">Email address</label>
                 <input type="email" class="form-control" aria-describedby="emailHelp" name="email">

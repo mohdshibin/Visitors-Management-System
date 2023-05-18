@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('title', 'Admin Dashboard')
+@section('title', 'Visitor Dashboard')
 
 @section('content')
 
