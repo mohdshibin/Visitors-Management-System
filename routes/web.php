@@ -30,8 +30,9 @@ Route::middleware('multiauth')->group(function () {
 Route::middleware(['redirectifnotauthenticated','access.validator'])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'getAdminDashboard'])->name('getAdminDashboard');
     Route::get('/visitor/dashboard', [VisitorDashboardController::class, 'getVisitorDashboard'])->name('getVisitorDashboard');
+    Route::get('/admin/request/{id}/approve',[AdminDashboardController::class, 'approveRequest'])->name('admin.request.approve');
+    Route::get('/admin/request/{id}/reject',[AdminDashboardController::class, 'rejectRequest'])->name('admin.request.reject');
 });
-
 
 Route::get('acessform', [AuthController::class, 'getAccessForm'])->name('getAccessForm');
 Route::post('acessform', [AccessFormController::class, 'requestAccess'])->name('postAccessForm');

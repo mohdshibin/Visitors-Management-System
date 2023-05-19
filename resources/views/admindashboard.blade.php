@@ -18,15 +18,17 @@
             <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; grid-gap:15px">
 
                 @foreach ($visitors as $visitor)
-                    @if ($visitor['request_status'] == 0)
+                    @if ($visitor['request_status'] == 'null')
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $visitor['fname'] }}</h5>
                                 <p class="card-text">Purpose : {{ $visitor['purpose'] }}</p>
                                 <p class="card-text">No of Peoples : {{ $visitor['noOfPeople'] }}</p>
                                 <p class="card-text"></p>
-                                <a class="btn btn-primary">Permit</a>
-                                <a class="btn btn-primary">Deny</a>
+                                <a href="{{ route('admin.request.approve', ['id' => $visitor->id]) }}"
+                                    class="btn btn-primary">Approve</a>
+                                <a href="{{ route('admin.request.reject', ['id' => $visitor->id]) }}"
+                                    class="btn btn-primary">Reject</a>
                             </div>
                         </div>
                     @endif
@@ -34,6 +36,14 @@
 
             </div>
         </div>
+
+        @if (session()->has('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
+
+        @if (session()->has('success'))
+            <div class="alert alert-success">{{ session()->get('success') }}</div>
+        @endif
     </div>
     </div>
 
