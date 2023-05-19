@@ -13,6 +13,8 @@ class VisitorCredential extends Authenticatable
 
     protected $fillable = [
         'email',
+        'password',
+        'visitor_id',
     ];
 
 

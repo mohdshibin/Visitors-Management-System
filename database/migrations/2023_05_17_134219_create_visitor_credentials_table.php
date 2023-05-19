@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('visitor_credentials', function (Blueprint $table) {
-            $table->foreignId('id')->constrained(
+            $table->foreignId('visitor_id')->constrained(
                 table: 'visitors', indexName: 'id'
             );
             // $table->unsignedBigInteger('id');
