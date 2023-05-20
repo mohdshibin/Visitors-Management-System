@@ -11,7 +11,8 @@
                 <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Logout</button>
             </form>
         </nav>
-
+        <a href="{{ route('checkin') }}" class="btn btn-primary">Check-IN</a>
+        <a href="{{ route('checkout') }}" class="btn btn-primary">Check_Out</a>
     </div>
 
 @stop
