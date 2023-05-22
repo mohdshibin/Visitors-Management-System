@@ -185,4 +185,9 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+    //Payment Authorization Key
+    'payment_access_key' => env('PAYMENT_ACCESS_KEY'),
+    'payment_secret_key' => env('PAYMENT_SECRET_KEY'),
+
+
 ];

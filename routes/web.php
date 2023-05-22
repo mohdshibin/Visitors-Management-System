@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AccessFormController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\VisitorDashboardController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,10 +38,14 @@ Route::middleware(['redirectifnotauthenticated','access.validator'])->group(func
 
     Route::get('/visitor/dashboard/checkin', [VisitorDashboardController::class, 'checkin'])->name('checkin');
     Route::get('/visitor/dashboard/checkout', [VisitorDashboardController::class, 'checkout'])->name('checkout');
+
+    Route::get('/visitor/payment', [PaymentController::class, 'getPaymentPage'])->name('get.PaymentPage');
+    Route::post('/visitor/payment', [PaymentController::class, 'index'])->name('generate.payment');
+    Route::get('/visitor/payment/callback', [PaymentController::class, 'callback'])->name('payment.callback');
 });
 
-Route::get('acessform', [AuthController::class, 'getAccessForm'])->name('getAccessForm');
-Route::post('acessform', [AccessFormController::class, 'requestAccess'])->name('postAccessForm');
+Route::get('accessform', [AuthController::class, 'getAccessForm'])->name('getAccessForm');
+Route::post('accessform', [AccessFormController::class, 'requestAccess'])->name('postAccessForm');
 
 Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
 
