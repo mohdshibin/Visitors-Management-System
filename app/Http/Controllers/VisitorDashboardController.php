@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class VisitorDashboardController extends Controller
 {
-    function getVisitorDashboard(){
+    function getVisitorDashboard()
+    {
         return view('visitordashboard');
     }
 
@@ -28,10 +30,9 @@ class VisitorDashboardController extends Controller
         $interval = $currentTime->diffInMinutes($lastCheckIn);
 
         if ($interval > 5) {
-            $visitor->due = $interval-5;
+            $visitor->due = $interval - 5;
             $visitor->save();
         }
         return back();
     }
-
 }

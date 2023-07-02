@@ -10,18 +10,28 @@ use App\Models\VisitorCredential;
 use App\Mail\ApproveEmail;
 use App\Mail\RejectEmail;
 use Illuminate\Support\Facades\Hash;
+use App\Interfaces\VisitorInterface;
 
 class AdminDashboardController extends Controller
 {
-    function getAdminDashboard(){
-        $data = Visitor::all();
-        return view('admindashboard',['visitors'=>$data]);
+    protected $visitorInterface;
+
+    function __construct(VisitorInterface $interface)
+    {
+        $this->visitorInterface = $interface;
+    }
+
+    function getAdminDashboard()
+    {
+        // $data = Visitor::all();
+        $data = $this->visitorInterface->all();
+        return view('admindashboard', ['visitors' => $data]);
     }
 
     public function approveRequest($id)
     {
-        $visitor = Visitor::find($id);
-
+        // $visitor = Visitor::find($id);
+        $visitor = $this->visitorInterface->getById($id);
 
         if (!$visitor) {
             return back()->with('error', 'visitor not found.');
@@ -37,7 +47,7 @@ class AdminDashboardController extends Controller
         VisitorCredential::create($data);
 
         //sending approval mail to user
-        Mail::to($visitor->email)->send(new ApproveEmail($data,$visitor->fname,$password));
+        Mail::to($visitor->email)->send(new ApproveEmail($data, $visitor->fname, $password));
 
 
         $visitor->request_status = "approved";
@@ -49,7 +59,8 @@ class AdminDashboardController extends Controller
 
     public function rejectRequest($id)
     {
-        $visitor = Visitor::find($id);
+        // $visitor = Visitor::find($id);
+        $visitor = $this->visitorInterface->getById($id);
 
         if (!$visitor) {
             return back()->with('error', 'visitor not found.');

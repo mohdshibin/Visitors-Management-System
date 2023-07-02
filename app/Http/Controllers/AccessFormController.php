@@ -1,14 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Visitor;
+
 use Illuminate\Http\Request;
+use App\Interfaces\VisitorInterface;
 
 class AccessFormController extends Controller
 {
-    function requestAccess(Request $request){
+    protected $visitorInterface;
 
-        try{
+    function __construct(VisitorInterface $interface)
+    {
+        $this->visitorInterface = $interface;
+    }
+    function requestAccess(Request $request)
+    {
+
+        try {
             $request->validate([
                 'fname' => 'required',
                 'contactNo' => 'required|digits:10',
@@ -18,9 +26,8 @@ class AccessFormController extends Controller
                 'noOfPeople' => 'required|numeric',
                 'parkingSlot' => 'required|boolean',
             ]);
-        }
-        catch(exception $e){
-            return back()->with('error',$e);
+        } catch (exception $e) {
+            return back()->with('error', $e);
         }
 
         $data['fname'] = $request->fname;
@@ -31,15 +38,13 @@ class AccessFormController extends Controller
         $data['noOfPeople'] = $request->noOfPeople;
         $data['parkingSlot'] = $request->parkingSlot;
 
-        
+
         try {
-            Visitor::create($data);
-        }
-        catch(Exception $e) {
-            // return redirect()->back()->with('error', 'Some error Occured!');
+            // $result = Visitor::create($data);
+            $result = $this->visitorInterface->store($data);
+        } catch (exception $e) {
             return back()->with('error', 'Some error Occured!');
         }
         return back()->with('success', 'Request sent.Please wait for conformation!');
     }
 }
-

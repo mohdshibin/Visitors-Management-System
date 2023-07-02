@@ -7,9 +7,16 @@ use App\Models\Visitor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use App\Interfaces\VisitorInterface;
 
 class PaymentController extends Controller
 {
+    protected $visitorInterface;
+
+    function __construct(VisitorInterface $interface)
+    {
+        $this->visitorInterface = $interface;
+    }
 
     function index(){
         $paymentAccessKey = Config::get('app.payment_access_key');
@@ -19,7 +26,7 @@ class PaymentController extends Controller
         $client = new \GuzzleHttp\Client();
 
         $visitor = Auth::guard('webvisitor')->user();
-        $visitor_info = Visitor::find($visitor->visitor_id);
+        $visitor_info = $this->visitorInterface->getById($visitor->visitor_id);
         $json_data =[
             'amount' => $visitor->due,
             'currency' => 'INR',
@@ -42,7 +49,6 @@ class PaymentController extends Controller
         $content = $response->getBody()->getContents();
         $data = json_decode($content, true);
 
-
         return view('layouts.payment_layer_checkout')->with('access_key',  $paymentAccessKey)->with('payment_token', $data['id']);
 }
 
@@ -60,10 +66,10 @@ class PaymentController extends Controller
         $client = new \GuzzleHttp\Client();
 
         $response = $client->request('GET', 'https://sandbox-icp-api.bankopen.co/api/payment_token/' . $token . '/payment', [
-        'headers' => [
-            'Authorization' => 'Bearer ' . $paymentAccessKey .':'. $paymentSecretKey,
-            'accept' => 'application/json',
-        ],
+            'headers' => [
+                'Authorization' => 'Bearer ' . $paymentAccessKey .':'. $paymentSecretKey,
+                'accept' => 'application/json',
+            ],
         ]);
 
         $content = $response->getBody()->getContents();
