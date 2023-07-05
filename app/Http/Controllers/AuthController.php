@@ -40,13 +40,22 @@ class AuthController extends Controller
 
         $credentials = $request->only('email', 'password');
 
+        // if (Auth::guard('webvisitor')->attempt($credentials)) {
+        //     return redirect()->intended(route('getVisitorDashboard'));
+        // }
+        // if (Auth::guard('webadmin')->attempt($credentials)) {
+        //     return redirect()->intended(route('getAdminDashboard'));
+        // } else {
+        //     return back()->with('error', 'Invalid EmailId or Password');
+        // }
+
         if (Auth::guard('webvisitor')->attempt($credentials)) {
-            return redirect()->intended(route('getVisitorDashboard'));
+            return response()->json(['redirect' => route('getVisitorDashboard')], 200);
         }
         if (Auth::guard('webadmin')->attempt($credentials)) {
-            return redirect()->intended(route('getAdminDashboard'));
+            return response()->json(['redirect' => route('getAdminDashboard')], 200);
         } else {
-            return back()->with('error', 'Invalid EmailId or Password');
+            return response()->json(['error' => 'Invalid Email or Password'], 401);
         }
     }
 
@@ -56,7 +65,6 @@ class AuthController extends Controller
             'email' => 'required',
             'password' => 'required',
         ]);
-
 
         $data['email'] = $request->email;
         $data['password'] = Hash::make($request->password);
@@ -70,6 +78,7 @@ class AuthController extends Controller
         // }
 
         // return redirect()->route('login');
+
         if (!$admin) {
             return response()->json(['error' => 'Some Problem'], 500);
         }
