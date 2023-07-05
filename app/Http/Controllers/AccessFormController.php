@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Interfaces\VisitorInterface;
+use Illuminate\Support\Facades\Response;
 
 class AccessFormController extends Controller
 {
@@ -39,12 +40,19 @@ class AccessFormController extends Controller
         $data['parkingSlot'] = $request->parkingSlot;
 
 
+        // try {
+        //     $result = Visitor::create($data);
+        //     $result = $this->visitorInterface->store($data);
+        // } catch (exception $e) {
+        //     return back()->with('error', 'Some error Occured!');
+        // }
+        // return back()->with('success', 'Request sent.Please wait for conformation!');
+
         try {
-            // $result = Visitor::create($data);
             $result = $this->visitorInterface->store($data);
         } catch (exception $e) {
-            return back()->with('error', 'Some error Occured!');
+            return response()->json(['error' => 'Some error Occured!'], 500);
         }
-        return back()->with('success', 'Request sent.Please wait for conformation!');
+        return response()->json(['message' => 'Request sent.Please wait for conformation!'], 200);
     }
 }
