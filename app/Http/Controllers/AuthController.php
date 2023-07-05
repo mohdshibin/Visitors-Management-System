@@ -65,11 +65,16 @@ class AuthController extends Controller
 
         //$admin = AdminCredential::create($data);
 
+        // if (!$admin) {
+        //     return redirect()->route('register')->with('error', 'Some Problem');
+        // }
+
+        // return redirect()->route('login');
         if (!$admin) {
-            return redirect()->route('register')->with('error', 'Some Problem');
+            return response()->json(['error' => 'Some Problem'], 500);
         }
 
-        return redirect()->route('login');
+        return response()->json(['message' => 'Registration successful'], 200);
     }
 
     function logout()
